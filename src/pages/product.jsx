@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, FormControl, InputLabel, OutlinedInput, Select, MenuItem, InputAdornment, IconButton, Grid, Typography, TextField } from '@mui/material';
+import { Box, FormControl, InputLabel, OutlinedInput, Select, MenuItem, InputAdornment, IconButton, Grid, Typography, TextField, Autocomplete } from '@mui/material';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -32,27 +32,39 @@ const Assign = () => {
 
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
   // Function to handle search input change
+
+
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
-  const handleChange = (prop) => (event) => {
-    setProductDetails({ ...productDetails, [prop]: event.target.value });
+
+  const handleChange = (prop) => (event, newValue) => {
+    if (newValue !== null && newValue !== undefined) {
+      setProductDetails({ ...productDetails, [prop]: newValue });
+    } else if (event && event.target) {
+      setProductDetails({ ...productDetails, [prop]: event.target.value });
+    }
   };
-  // Function to filter products based on search input
-  const handleSearch = () => {
-    const categoryProducts = getCategoryProducts(productDetails.category);
-    const filtered = categoryProducts.filter((product) =>
-      product.toLowerCase().includes(searchInput.toLowerCase())
+
+  const handleSearch = (searchTerm = '') => {
+    const filtered = allProducts.filter(product =>
+      product.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
   };
 
-  // useEffect to update filtered products when search input or category changes
   useEffect(() => {
-    handleSearch();
+    handleSearch(searchInput);
   }, [searchInput, productDetails.category]);
+
+  useEffect(() => {
+    // Initialize allProducts with the products of the current category
+    setAllProducts(getCategoryProducts(productDetails.category));
+  }, [productDetails.category]);
+
 
   // Function to get category-specific products
   const getCategoryProducts = (category) => {
@@ -296,76 +308,90 @@ const Assign = () => {
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl" style={{ width: '100%' }}>
-                    <InputLabel>Category</InputLabel>
-                    <Select
+                    <Autocomplete
                       value={productDetails.category}
-                      onChange={handleChange('category')}
-                      label="Category"
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            maxHeight: 300,
-                            borderRadius: 8,
-                            marginTop: 55,
-                          },
+                      onChange={(event, newValue) => {
+                        handleChange('category')({ target: { value: newValue } });
+                      }}
+                      options={categories}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Category"
+                          variant="outlined"
+                        />
+                      )}
+                      ListboxProps={{
+                        style: {
+                          maxHeight: 300,
+                          borderRadius: 8,
                         },
                       }}
-                    >
-                      {categories.map((category, index) => (
+                      renderOption={(props, option, { index }) => (
                         <MenuItem
+                          {...props}
                           key={index}
-                          value={category}
                           style={{
                             borderBottom: index !== categories.length - 1 ? '0.5px solid #E0E0E0' : 'none',
                           }}
                         >
-                          {category}
+                          {option}
                         </MenuItem>
-                      ))}
-                    </Select>
+                      )}
+                    />
                   </FormControl>
                 </Grid>
 
+
                 <Grid item xs={6}>
-  <FormControl variant="outlined" className="p5formControl" style={{ width: '100%' }}>
-    <InputLabel>Product Name</InputLabel>
-    <Select
-      value={productDetails.productName}
-      onChange={handleChange('productName')}
-      onOpen={handleSearch}
-      startAdornment={
-        <InputAdornment position="start">
-          <IconButton onClick={handleSearch}>
-            <img src="/search.svg" alt="Search" style={{ width: '20px', height: '20px' }} />
-          </IconButton>
-        </InputAdornment>
-      }
-      label="Product Name"
-      renderValue={(selected) => (selected ? selected : 'Select a product')}
-      MenuProps={{
-        PaperProps: {
-          style: {
-            maxHeight: 300,
-            borderRadius: 8,
-            marginTop: 55,
-          },
-        },
-      }}
-    >
-      {filteredProducts.map((product, index) => (
-        <MenuItem
-          key={index}
-          value={product}
-          style={{
-            borderBottom: index !== filteredProducts.length - 1 ? '0.5px solid #E0E0E0' : 'none',
-          }}
-        >
-          {product}
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
-</Grid>
+                  <FormControl variant="outlined" className="p5formControl" style={{ width: '100%' }}>
+                    <Autocomplete
+                      value={productDetails.productName}
+                      onChange={(event, newValue) => handleChange('productName')(event, newValue)}
+                      options={allProducts}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Product Name"
+                          variant="outlined"
+                          InputProps={{
+                            ...params.InputProps,
+                            startAdornment: (
+                              <>
+                                <InputAdornment position="start">
+                                  <IconButton>
+                                    <img src="/search.svg" alt="Search" style={{ width: '20px', height: '20px' }} />
+                                  </IconButton>
+                                </InputAdornment>
+                                {params.InputProps.startAdornment}
+                              </>
+                            ),
+                          }}
+                        />
+                      )}
+                      ListboxProps={{
+                        style: {
+                          maxHeight: 300,
+                          borderRadius: 8,
+                        },
+                      }}
+                      renderOption={(props, option, { index }) => (
+                        <MenuItem
+                          {...props}
+                          key={index}
+                          style={{
+                            borderBottom: index !== allProducts.length - 1 ? '0.5px solid #E0E0E0' : 'none',
+                          }}
+                        >
+                          {option}
+                        </MenuItem>
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
+
+
+               
 
 
                 <Grid item xs={6}>
