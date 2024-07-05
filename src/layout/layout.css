@@ -1,0 +1,17 @@
+.main-content {
+  margin-left: 200px; /* Adjust based on your sidebar width */
+}
+
+.p2sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #fff;
+  padding: 1rem;
+  border-right: 1px solid #e9ecef;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+/* Rest of your sidebar CSS */

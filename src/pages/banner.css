@@ -1,0 +1,387 @@
+.p1app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+
+  .p1main {
+    display: flex;
+    flex: 1;
+  }
+
+
+
+  /* CSS styles for the container */
+  .phase3.container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+
+    .p3head {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background-color: #fff;
+      margin-left: 255px;
+      margin-top: 100px;
+      height: 850px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #bebebe;
+
+      .sub {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
+        margin-left: 115px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-top: -28px; /* Optional: add margin-top for spacing */
+      }
+    }
+
+    .p3content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      max-width: 1000px;
+      justify-content: center;
+      position: absolute;
+      top: 20%;
+      left: 30%;
+    }
+
+    .p3title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .p3subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: #666;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .p3banners {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* General styles for each banner */
+    .banner1,
+    .banner2,
+    .banner3,
+    .banner4 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      position: relative;
+      height: auto;
+    }
+
+    .p3banner-special {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      padding: 20px;
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .p3content-left {
+      flex: 1;
+    }
+
+    .p3store {
+      font-size: 10px; /* Set the font size */
+      font-weight: 400; /* Set the font weight */
+      color: #fff; /* Set the text color to white */
+      background-color: #00000033; /* Set the background color with transparency */
+      height: 12px; /* Set the height */
+      width: 60%; /* Set the width to 50% */
+      display: inline-block; /* Ensure the element respects width and height */
+      text-align: center; /* Center the text horizontally */
+      line-height: 12px; /* Center the text vertically */
+      border-radius: 8px; /* Add rounded corners */
+      padding: 2px 0; /* Add padding for better spacing */
+    }
+
+    .p3offer {
+      font-size: 18px;
+      color: #fff;
+      margin: 10px 0;
+      font-weight: 700;
+    }
+
+    .p3cta {
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #134795;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex; /* Add this line */
+      align-items: center; /* Center items vertically */
+    }
+
+    .p3cta img {
+      margin-left: 8px; /* Space between text and image */
+      width: 20px; /* Increase size as needed */
+      height: auto;
+      color: #134795;
+    }
+
+    .banner1 .p3cta {
+      padding: 10px 20px;
+      background-color: #fdf541;
+      color: #134795;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex; /* Add this line */
+      align-items: center; /* Center items vertically */
+    }
+
+    .banner1 .p3cta img {
+      margin-left: 8px; /* Space between text and image */
+      width: 20px; /* Increase size as needed */
+      height: auto;
+      color: #134795;
+    }
+    .p3cta:hover {
+      background-color: #ee4677;
+    }
+
+    .p3img-right {
+      flex: 1;
+      text-align: right;
+    }
+
+    .p3img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: -75px;
+    }
+
+    .p3additional-content {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    /* Specific background colors for each banner */
+    .banner1 .p3banner-special {
+      background-color: #1785ff;
+    }
+
+    .banner2 .p3banner-special {
+      background: linear-gradient(90deg, #668d12 0%, #acc43f 113.61%);
+    }
+
+    .banner3 .p3banner-special {
+      background: linear-gradient(99.63deg, #d80027 0%, #f7c594 96.9%);
+    }
+
+    .banner4 .p3banner-special {
+      background: linear-gradient(100.27deg, #ee4677 0%, #1877e8 106.41%);
+    }
+
+    .banner-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 10px;
+      margin-top: 15px;
+      font-weight: 500;
+      font-size: 24px;
+    }
+
+    /* Custom radio button styles */
+    .p3radio {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ea3c3c;
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .p3radio:checked::before {
+      content: "";
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: #ea3c3c;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 959px) {
+  .p1app {
+    .p2header {
+      position: fixed;
+      padding: 0.5rem;
+      
+      .p2logo {
+       display: none;
+      }
+
+      .p2user {
+        .p2text {
+          display: none;
+        }
+        
+        .p2coin {
+          margin-left: 40px;
+        }
+        
+        .p2img-container {
+          margin-right: 0;
+        }
+
+        .hamburger {
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          width: 30px;
+          height: 20px;
+          cursor: pointer;
+          position: absolute; /* Positioning the element absolutely */
+          top: 10px; /* Adjust the distance from the top */
+          left: 0px; /* Adjust the distance from the left */
+        }
+      }
+    }
+
+    .p2sidebar {
+      display: none;
+    }
+
+    .phase3.container {
+      margin-left: 0;
+      margin-top: 60px;
+      background-color: #fff;
+
+      .p3head {
+        font-size: 16px;
+        margin-left: 10px;
+        
+        .sub {
+          font-size: 16px;
+          margin-top: -25px;
+          margin-left: 85px;
+        }
+      }
+
+      .p3content {
+        position: static;
+        width: calc(100% - 20px);
+        margin: 10px;
+        padding: 15px;
+        margin-top: -755px;
+        transform: translateX(-4%);
+      
+      }
+
+      .p3title {
+        font-size: 18px;
+        text-align: left;
+      }
+
+      .p3subtitle {
+        font-size: 14px;
+        text-align: left;
+      }
+
+      .p3banners {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .banner1, .banner2, .banner3, .banner4 {
+        padding: 15px;
+      }
+
+      .p3banner-special {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+      }
+
+      .p3content-left {
+        flex: 2;
+      }
+
+      .p3img-right {
+        flex: 1;
+      }
+
+      .p3store {
+        font-size: 8px;
+        padding: 2px 5px;
+      }
+
+      .p3offer {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+
+      .p3cta {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      .p3img {
+        max-width: 100%;
+        margin-bottom: -30px;
+      }
+
+      .banner-header {
+        font-size: 16px;
+        align-items: center;
+      }
+
+      .p3radio {
+        width: 16px;
+        height: 16px;
+      }
+      .p3radio:checked::before {
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        
+      }
+    }
+  }
+}

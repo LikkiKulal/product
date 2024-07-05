@@ -4,10 +4,16 @@ import { Box, FormControl, InputLabel, OutlinedInput, Select, MenuItem, InputAdo
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import './product.css';
 
 const Assign = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSpecialDiscountOpen, setIsSpecialDiscountOpen] = useState(false);
+  const [isUOMOpen, setIsUOMOpen] = useState(false);
+
 
   const [values, setValues] = React.useState({
     newStock: '',
@@ -42,7 +48,9 @@ const Assign = () => {
   };
 
   const handleChange = (prop) => (event, newValue) => {
-    if (newValue !== null && newValue !== undefined) {
+    if (prop === 'specialDiscount' || prop === 'uom') {
+      setProductDetails({ ...productDetails, [prop]: event.target.value });
+    } else if (newValue !== null && newValue !== undefined) {
       setProductDetails({ ...productDetails, [prop]: newValue });
     } else if (event && event.target) {
       setProductDetails({ ...productDetails, [prop]: event.target.value });
@@ -194,67 +202,8 @@ const Assign = () => {
 
   return (
     <div className="p1app">
-      <header className="p2header">
-        <div className="p2logo">
-          <img src='/logo.svg' alt='' />
-        </div>
-        <div className="p2user">
-          <span className='p2text'>Welcome, Rajesh👋</span>
-          <span className='p2coin'>
-            XCoins: 300
-            <img src='/coin.svg' alt='' />
-          </span>
-          <div className='p2img-container'>
-            <img src="/cash.svg" alt="" className='p2img' />
-            <img src="/bell.svg" alt="" className='p2img' />
-            <span >
-              <img src='/profile2.svg' alt='' className='p2img' />
-            </span>
-          </div>
-          <div class="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      </header>
-
-      <div className="p1main">
-        <aside className="p2sidebar">
-          <div className="p2store">
-            <img src='/kanan.svg' alt='' className='img' />
-            <div class="text">Kannan departmental
-              <img src='/down.svg' alt='' />
-            </div>
-          </div>
-          <nav>
-            <ul>
-              <li className="p3active">
-                <Link to="/dashboard" className="no-underline">
-                  <img src='/dashboard.svg' alt='' className="dashboard-icon" />
-                  <span className="dashboard-text">Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <img src='/orders.svg' alt='' />
-                Orders
-              </li>
-              <li>
-                <img src='/products.svg' alt='' />
-                My Products
-              </li>
-              <li>
-                <img src='/profile.svg' alt='' />
-                Profile
-              </li>
-            </ul>
-          </nav>
-
-        </aside>
-
-      </div>
-
-      <div className='p3main'>
+    <div className="p1main"></div>
+      <div className='p3maincontainer'>
         <div className="phase3 p3edit-product">
           <div className="p3back">
             <span className="p3back-link">← Back</span>
@@ -279,6 +228,17 @@ const Assign = () => {
                         value={values.newStock}
                         onChange={handleChange('newStock')}
                         label="New stock"
+                        inputProps={{
+                          style: {
+                            '-moz-appearance': 'textfield',
+                          },
+                        }}
+                        sx={{
+                          '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                            '-webkit-appearance': 'none',
+                            margin: 0,
+                          },
+                        }}
                       />
                     </FormControl>
                   </div>
@@ -294,6 +254,17 @@ const Assign = () => {
                         value={values.reduceStock}
                         onChange={handleChange('reduceStock')}
                         label="Reduce stock"
+                        inputProps={{
+                          style: {
+                            '-moz-appearance': 'textfield',
+                          },
+                        }}
+                        sx={{
+                          '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                            '-webkit-appearance': 'none',
+                            margin: 0,
+                          },
+                        }}
                       />
                     </FormControl>
                   </div>
@@ -302,10 +273,12 @@ const Assign = () => {
             </div>
 
 
+
             <Box className="phase5">
               <h2 className="p5head">Product Details</h2>
 
-              <Grid container spacing={2}>
+              <Grid container spacing={8}>
+
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl" style={{ width: '100%' }}>
                     <Autocomplete
@@ -313,14 +286,28 @@ const Assign = () => {
                       onChange={(event, newValue) => {
                         handleChange('category')({ target: { value: newValue } });
                       }}
+                      onOpen={() => setIsOpen(true)}
+                      onClose={() => setIsOpen(false)}
                       options={categories}
                       renderInput={(params) => (
                         <TextField
                           {...params}
                           label="Category"
                           variant="outlined"
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <InputAdornment position="end" style={{ position: "relative" }}>
+                                <div style={{ marginRight: '-18px' }}>
+                                  {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                                </div>
+                              </InputAdornment>
+                            ),
+                          }}
                         />
                       )}
+                      popupIcon={null}
+                      disableClearable
                       ListboxProps={{
                         style: {
                           maxHeight: 300,
@@ -342,12 +329,13 @@ const Assign = () => {
                   </FormControl>
                 </Grid>
 
-
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl" style={{ width: '100%' }}>
                     <Autocomplete
                       value={productDetails.productName}
                       onChange={(event, newValue) => handleChange('productName')(event, newValue)}
+                      onOpen={() => setIsOpen(true)}
+                      onClose={() => setIsOpen(false)}
                       options={allProducts}
                       renderInput={(params) => (
                         <TextField
@@ -366,9 +354,18 @@ const Assign = () => {
                                 {params.InputProps.startAdornment}
                               </>
                             ),
+                            endAdornment: (
+                              <InputAdornment position="end" style={{ position: "relative" }}>
+                                <div style={{ marginRight: '-18px' }}>
+                                  {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                                </div>
+                              </InputAdornment>
+                            ),
                           }}
                         />
                       )}
+                      popupIcon={null}
+                      disableClearable
                       ListboxProps={{
                         style: {
                           maxHeight: 300,
@@ -391,22 +388,45 @@ const Assign = () => {
                 </Grid>
 
 
-               
 
 
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl">
                     <InputLabel>Product MRP</InputLabel>
-                    <OutlinedInput type="number" value={productDetails.productMRP} onChange={handleChange('productMRP')} label="Product MRP" />
+                    <OutlinedInput type="number" value={productDetails.productMRP} onChange={handleChange('productMRP')}
+                      label="Product MRP"
+                      inputProps={{
+                        style: {
+                          '-moz-appearance': 'textfield',
+                        },
+                      }}
+                      sx={{
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                          '-webkit-appearance': 'none',
+                          margin: 0,
+                        },
+                      }}
+                    />
                   </FormControl>
                 </Grid>
 
                 <Grid item xs={6}>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <FormControl variant="outlined" className="p5formControl">
+                      <FormControl variant="outlined" className="p5formControl" fullWidth>
                         <InputLabel>Special Discount</InputLabel>
-                        <Select value={productDetails.specialDiscount} onChange={handleChange('specialDiscount')} label="Special Discount">
+                        <Select
+                          value={productDetails.specialDiscount}
+                          onChange={handleChange('specialDiscount')}
+                          onOpen={() => setIsSpecialDiscountOpen(true)}
+                          onClose={() => setIsSpecialDiscountOpen(false)}
+                          label="Special Discount"
+                          IconComponent={(props) => (
+                            <div style={{ position: 'relative', right: '8px' }}>
+                              {isUOMOpen ? <ExpandLessIcon {...props} /> : <ExpandMoreIcon {...props} />}
+                            </div>
+                          )}
+                        >
                           {discounts.map((discount, index) => (
                             <MenuItem key={index} value={discount}>{discount}</MenuItem>
                           ))}
@@ -416,7 +436,20 @@ const Assign = () => {
                     <Grid item xs={6}>
                       <FormControl variant="outlined" className="p5formControl">
                         <InputLabel>Discount Value</InputLabel>
-                        <OutlinedInput type="number" value={productDetails.discountValue} onChange={handleChange('discountValue')} label="Discount Value" />
+                        <OutlinedInput type="number" value={productDetails.discountValue} onChange={handleChange('discountValue')}
+                          label="Discount Value"
+                          inputProps={{
+                            style: {
+                              '-moz-appearance': 'textfield',
+                            },
+                          }}
+                          sx={{
+                            '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                              '-webkit-appearance': 'none',
+                              margin: 0,
+                            },
+                          }}
+                        />
                       </FormControl>
                     </Grid>
                   </Grid>
@@ -425,14 +458,38 @@ const Assign = () => {
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl">
                     <InputLabel>Product Price</InputLabel>
-                    <OutlinedInput type="number" value={productDetails.productPrice} onChange={handleChange('productPrice')} label="Product Price" />
+                    <OutlinedInput type="number" value={productDetails.productPrice} onChange={handleChange('productPrice')}
+                      label="Product Price"
+                      inputProps={{
+                        style: {
+                          '-moz-appearance': 'textfield',
+                        },
+                      }}
+                      sx={{
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                          '-webkit-appearance': 'none',
+                          margin: 0,
+                        },
+                      }}
+                    />
                   </FormControl>
                 </Grid>
 
                 <Grid item xs={6}>
-                  <FormControl variant="outlined" className="p5formControl">
+                  <FormControl variant="outlined" className="p5formControl" fullWidth>
                     <InputLabel>UOM</InputLabel>
-                    <Select value={productDetails.uom} onChange={handleChange('uom')} label="UOM">
+                    <Select
+                      value={productDetails.uom}
+                      onChange={handleChange('uom')}
+                      onOpen={() => setIsUOMOpen(true)}
+                      onClose={() => setIsUOMOpen(false)}
+                      label="UOM"
+                      IconComponent={(props) => (
+                        <div style={{ position: 'relative', right: '8px' }}>
+                          {isUOMOpen ? <ExpandLessIcon {...props} /> : <ExpandMoreIcon {...props} />}
+                        </div>
+                      )}
+                    >
                       {uoms.map((uom, index) => (
                         <MenuItem key={index} value={uom}>{uom}</MenuItem>
                       ))}
@@ -443,14 +500,40 @@ const Assign = () => {
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl">
                     <InputLabel>Unit Size</InputLabel>
-                    <OutlinedInput type="number" value={productDetails.unitSize} onChange={handleChange('unitSize')} label="Unit Size" />
+                    <OutlinedInput type="number" value={productDetails.unitSize} onChange={handleChange('unitSize')}
+                      label="Unit Size"
+                      inputProps={{
+                        style: {
+                          '-moz-appearance': 'textfield',
+                        },
+                      }}
+                      sx={{
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                          '-webkit-appearance': 'none',
+                          margin: 0,
+                        },
+                      }}
+                    />
                   </FormControl>
                 </Grid>
 
                 <Grid item xs={6}>
                   <FormControl variant="outlined" className="p5formControl">
                     <InputLabel>Available Quantity</InputLabel>
-                    <OutlinedInput type="number" value={productDetails.availableQuantity} onChange={handleChange('availableQuantity')} label="Available Quantity" />
+                    <OutlinedInput type="number" value={productDetails.availableQuantity} onChange={handleChange('availableQuantity')}
+                      label="Available Quantity"
+                      inputProps={{
+                        style: {
+                          '-moz-appearance': 'textfield',
+                        },
+                      }}
+                      sx={{
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                          '-webkit-appearance': 'none',
+                          margin: 0,
+                        },
+                      }}
+                    />
                   </FormControl>
                 </Grid>
               </Grid>
@@ -462,21 +545,19 @@ const Assign = () => {
                   Product Information
                 </Typography>
 
-                <FormControl fullWidth variant="outlined" className="form-control">
-                  <InputLabel htmlFor="Description" className="label">
-                    Description
-                  </InputLabel>
-                  <TextField
+                <FormControl fullWidth variant="outlined" margin="normal">
+                  <InputLabel htmlFor="product-description" className="label">Description</InputLabel>
+                  <OutlinedInput
                     id="product-description"
                     multiline
                     rows={4}
                     value="Lorem ipsum dolor sit amet consectetur. Viverra diam gravida praesent bibendum urna velit. Imperdiet feugiat id morbi volutpat varius felis eget laoreet. Sit semper ut pulvinar blandit et nunc. Est in quisque at risus tortor. Pharetra malesuada scelerisque semper risus cursus commodo ut tellus. At non magna gravida eros ut. Urna risus commodo blandit nunc. Turpis sagittis consectetur nulla ornare volutpat. Eget tellus integer id nibh congue. Egestas egestas viverra turpis habitasse mauris est arcu. Est in quisque at risus tortor."
-                    InputProps={{
-                      readOnly: true,
-                    }}
+                    readOnly
+                    label="Description"
                     className="text-field"
                   />
                 </FormControl>
+
 
 
 

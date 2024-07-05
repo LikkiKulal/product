@@ -9,153 +9,13 @@
     flex: 1;
   }
 
-  .p2header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-
-    .p2logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-      color: #ff69b4;
-    }
-
-    .p2user {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      position: relative;
-
-      .p2text {
-        font-weight: 700;
-        margin-right: 657px; /* Position from the left edge of .p2user */
-        font-size: 24px;
-      }
-      .p2coin {
-        font-weight: 600;
-        font-size: 20px;
-        display: inline-flex; /* Use inline-flex to keep elements in a line */
-        align-items: center; /* Align items vertically */
-        gap: 5px; /* Adjust the gap between text and image */
-        background-color: #fff2f4;
-        border-radius: 8px;
-        width: 150px;
-        height: 49px;
-        margin-right: 15px;
-        justify-content: center; /* Center content horizontally */
-        padding: 0 10px; /* Optional: Add padding for better spacing */
-      }
-
-      .p2img-container {
-        display: flex;
-        margin-right: 15px;
-
-        .p2img {
-          width: 30px; /* Adjust image width as needed */
-          height: 30px; /* Adjust image height as needed */
-          border-radius: 25px; /* Ensures the image appears in a circle */
-          background-color: #fff2f4; /* Sets background color inside the circle */
-          margin-right: 10px; /* Creates gap between images */
-          padding: 10px;
-        }
-      }
-      .hamburger {
-        display: none;
-      }
-    }
-  }
-
-  .p2sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: #fff;
-    padding: 1rem;
-    border-right: 1px solid #e9ecef;
-    margin-top: 90px;
-    position: fixed;
-
-    .p2store {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: left;
-      justify-content: left;
-      flex-wrap: wrap; /* Allow items to wrap if necessary */
-
-      .img {
-        margin-right: 50px; /* Adjust margin as needed */
-      }
-      .text {
-        display: flex;
-        align-items: center;
-        margin-top: 10px;
-        font-weight: 600;
-      }
-
-      .text img {
-        margin-left: 10px; /* Adjust margin as needed */
-      }
-    }
-
-    nav ul {
-      list-style-type: none; /* Removes default bullet points */
-      padding: 0; /* Removes default padding */
-    }
-
-    nav li {
-      display: flex;
-      align-items: center;
-      padding: 10px; /* Adjust padding as needed */
-    }
-
-    nav li img {
-      margin-right: 10px; /* Adjust margin between image and text */
-    }
-    .p3active {
-      font-weight: bold;
-      width: 100%;
-      background-color: #fff2f4;
-      color: #000;
-      position: relative;
-    }
-    .p3active::after {
-      content: "";
-      position: absolute;
-      top: 0px;
-      right: 0;
-      height: 100%; /* Full height of the parent element */
-      width: 5px; /* Adjust thickness of the line */
-      background-color: #ff4081; /* Color of the line */
-    }
-    .no-underline {
-      text-decoration: none;
-      display: inline-block; /* Ensure the link behaves like an inline element */
-      vertical-align: middle; /* Align the link vertically with the image */
-      margin-top: 5px;
-    }
-    .dashboard-icon {
-      vertical-align: middle; /* Align the image vertically with the text */
-      margin-right: 10px; /* Adjust spacing between image and text */
-    }
-
-    .dashboard-text {
-      color: #030401;
-      vertical-align: middle; /* Align the text vertically with the image */
-    }
-  }
-
-  .p3main {
+  .p3maincontainer {
     font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  .phase3 {
+    z-index: 0;
+    /* padding: 20px;
+    background-color: #f5f5f5; */
+  
+  .phase3  {
     display: flex;
     flex-direction: column;
     /* align-items: center; */
@@ -163,6 +23,7 @@
     background-color: #ffffff;
     margin-left: 255px;
     margin-top: 100px;
+    z-index: 0;
     height: auto;
 
     .p3back {
@@ -172,6 +33,7 @@
       font-weight: 600;
       margin-left: 0px;
       margin-top: 25px;
+      z-index: 0;
 
       .p3back-link {
         font-size: 18px; /* Adjust the font size */
@@ -190,16 +52,17 @@
     .p3title {
       font-size: 24px;
       margin-bottom: 20px;
+      z-index: 0;
     }
   }
   .phase4 {
     background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #E0E0E0;
-    margin-bottom: 20px;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #E0E0E0;
+        margin-bottom: 20px;
+        z-index: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     
     
@@ -208,12 +71,14 @@
       color: #030401;
       font-weight: 500;
       font-size: 20px;
+      z-index: 0;
     }
     
     .p4available-stock {
       margin-bottom: 20px;
       color: #198754;
       font-weight: 500;
+      z-index: 0;
       font-size: 16px;
     }
     
@@ -225,6 +90,7 @@
       color: #030401;
       font-weight: 500;
       max-width: 1800px;
+      z-index: 0;
       font-size: 16px;
     }
     
@@ -235,6 +101,7 @@
     
     .p4stock-input {
       width: 100%;
+        z-index: 0;
     }
     
     .p4input-description {
@@ -245,7 +112,9 @@
     }
   }
 
+
   .phase5 {
+    z-index: 0;
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -258,6 +127,7 @@
       margin-bottom: 16px;
       color: #030401;
       font-weight: 500;
+      z-index: 0;
       font-size: 20px;
     }
     
@@ -272,6 +142,7 @@
      
   
   .phase6 {
+    z-index: 0;
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -284,11 +155,13 @@
     .p6product-information {
       max-width: 1600px;
       margin: 0 auto;
+      z-index: 0;
     }
     
     .p6section-title {
       margin-bottom: 20px;
       color: #030401;
+      z-index: 0;
       font-weight: 500;
       font-size: 20px;
     }
@@ -296,6 +169,7 @@
     .p6product-description{
       color: #030401;
       font-weight: 400;
+      z-index: 0;
       font-size: 14px;
       
     }
@@ -303,8 +177,9 @@
     .label{
       color: #030401;
       font-weight: 400;
-      font-size: 12px;
-      margin-top: -23px;
+      z-index: 0;
+      font-size: 16px;
+      
     }
     .p6metadata {
       margin-top: 20px;
@@ -313,6 +188,7 @@
 
   .container {
     display: flex;
+    z-index: 0;
     gap: 20px; /* Adjust gap as needed */
 
     .phase7 {
@@ -536,3 +412,4 @@
   }
 }
 
+}

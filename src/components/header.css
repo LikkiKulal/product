@@ -1,0 +1,91 @@
+
+
+ .p2header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+
+  .p2logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ff69b4;
+  }
+
+  .p2user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+
+    .p2text {
+      font-weight: 700;
+      margin-right: 520px; /* Position from the left edge of .p2user */
+      font-size: 24px;
+    }
+    .p2coin {
+      font-weight: 600;
+      font-size: 20px;
+      display: inline-flex; /* Use inline-flex to keep elements in a line */
+      align-items: center; /* Align items vertically */
+      gap: 5px; /* Adjust the gap between text and image */
+      background-color: #fff2f4;
+      border-radius: 8px;
+      width: 150px;
+      height: 49px;
+      margin-right: 15px;
+      justify-content: center; /* Center content horizontally */
+      padding: 0 10px; /* Optional: Add padding for better spacing */
+    }
+
+    .p2img-container {
+      display: flex;
+      margin-right: 15px;
+
+      .p2img {
+        width: 30px; /* Adjust image width as needed */
+        height: 30px; /* Adjust image height as needed */
+        border-radius: 25px; /* Ensures the image appears in a circle */
+        background-color: #fff2f4; /* Sets background color inside the circle */
+        margin-right: 10px; /* Creates gap between images */
+        padding: 10px;
+      }
+    }
+  }
+}
+.p1logout {
+  position: absolute;
+  top: 130%; /* Positions it right below the header */
+  right: 10%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none; /* Removes top border to blend with header */
+  box-shadow:  2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000; /* Ensures it appears above other content */
+}
+
+.p1logout span {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 24px;
+  color: #030401;
+}
+
+.p1logout img {
+  width: 20px;
+                height: 20px;
+                border-radius: 25px;
+                background-color: #fff2f4;
+                margin-right: 10px;
+                padding: 10px;
+}
+

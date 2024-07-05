@@ -1,0 +1,463 @@
+.p1app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  position: relative; /* Ensure it’s positioned relatively */
+
+  .p1main {
+    display: flex;
+    flex: 1;
+  }
+
+ 
+
+  .phase3 {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+
+    .p3head {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background-color: #fff;
+      margin-left: 255px;
+      margin-top: 100px;
+      height: 800px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #bebebe;
+
+      .sub {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
+        margin-left: 115px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-top: -28px; /* Optional: add margin-top for spacing */
+      }
+    }
+
+    .p3container {
+      background-image: url('../../public/bg1.svg');/* Add the path to your image here */
+    background-size: cover; /* This ensures the image covers the entire container */
+    background-position: center; /* This centers the image in the container */
+    color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    max-width: 380px;
+    height: 590px;
+    margin-top: 75px;
+    top: 20%;
+    left: 23%;
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .p3header {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #FFFFFF;
+      }
+      .p3header h1{
+        text-align: center;
+      }
+
+      .p3header p {
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+   
+      }
+     
+    }
+
+    .p3referral {
+      margin-bottom: 40px; /* Increase margin-bottom for more space */
+      display: flex;
+      align-items: center;
+      padding: 20px; /* Increase padding for more internal space */
+      border: 1px solid #ccc;
+      background-color: #03040180;
+      box-sizing: border-box;
+      border-radius: 20px; /* Increase border-radius for rounder corners */
+      /* width: 400px;  */
+      /* Fixed width for the container */
+      height: 20vh;
+      position: relative;
+      left: 0;
+      justify-content: center;
+    }
+   
+    .main {
+      position: absolute; /* Position the main div absolutely within its relative container */
+      top: 10px; /* Adjust top positioning as needed */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Center horizontally */
+      padding: 10px; /* Example padding */
+      font-size: 14px; /* Example font size */
+      color: #868C9A;
+      font-weight: 500;
+    }
+    .code {
+      display: flex;
+      flex-shrink: 0;
+      color: #FFFFFF;
+      padding: 10px;
+      border: 1px solid #ee4677;
+      border-radius: 20px;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(245, 247, 248, 0.3) 33.65%,
+        rgba(255, 255, 255, 0.3) 65.42%,
+        rgba(255, 255, 255, 0.3) 100%
+      );
+      /* Adjust the width */
+      width: 300px;
+      /* Increase the width as per your requirement */
+      margin: 0 auto; /* Center horizontally */
+      left: 35%; /* Positioning */
+      position: relative;
+      margin-top: -30px;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .p3social {
+      display: flex;
+      position: relative;
+      right: 45%;
+      align-items: center; /* Centers the images vertically */
+      top: 40%;
+      gap: 20px;
+      justify-content: center;
+    }
+    
+    .p3social a img {
+      background-color: #ffffff;
+      border: 1px solid #ee4677;
+      border-radius: 8px;
+      padding: 10px;
+      width: 20px;
+      height: 20px;
+    }
+    
+    
+
+    .info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 80%;
+      left: 10%;
+      /* transform: translateY(-0px );  */
+      /* Adjust this value to move the text upwards */
+    }
+
+    .info::before,
+    .info::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px dotted #ffffff;
+      margin: 0 10px;
+    }
+
+    .h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff; /* Ensure text is visible against the background */
+    }
+
+    .p3info {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      margin-bottom: 20px;
+      margin-top: 30px;
+
+      .p3howit,
+      .p3faq {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        background-color: #fff;
+        color: #000;
+      }
+
+      .p3howit h2,
+      .p3faq h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 10px; /* Adjust spacing between text and image */
+      }
+
+      .p3howit img,
+      .p3faq img {
+        max-width: 30px; /* Adjust image width as needed */
+        height: auto;
+        margin-left: auto;
+      }
+    }
+  }
+  
+  .phase41 {
+    color: #000;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    max-width: 480px;
+    height: 670px;
+    margin-top: 75px;
+    top: 20%;
+    left: 60%;
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+
+    .title {
+      font-weight: 600;
+      font-size: 24px; /* Adjust the font size as needed */
+      color: #000000; /* Adjust the color */
+      margin-bottom: 10px; /* Adjust the margin */
+    }
+
+    .subtitle {
+      font-weight: 500;
+      font-size: 12px; /* Adjust the font size as needed */
+      color: #868c9a; /* Adjust the color */
+      margin-bottom: 20px; /* Adjust the margin */
+    }
+
+    .p3stats {
+      display: flex;
+      justify-content: space-a;
+      margin-bottom: 20px;
+      position: relative;
+
+      .p3referrals,
+      .p3earnings {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        margin-left: 10px;
+        border-radius: 15px;
+      }
+
+      .p3referrals img,
+      .p3earnings img {
+        height: 30px;
+        border-radius: 25px;
+        background-color: #fff2f4;
+        margin-right: 10px;
+        padding: 10px;
+      }
+
+      .p3referrals .content,
+      .p3earnings .content {
+        flex-grow: 1;
+      }
+
+      .p3referrals h3,
+      .p3earnings h3 {
+        margin-top: 0;
+        color: #181818;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .p3referrals span,
+      .p3earnings span {
+        font-weight: bold;
+        color: #333;
+        margin-top: -15px;
+        margin-bottom: 5px;
+        display: block;
+        font-weight: 600;
+        font-size: 24px;
+      }
+
+      .p3referrals p,
+      .p3earnings p {
+        margin-bottom: 0;
+        color: #868c9a;
+        font-size: 10px;
+      }
+    }
+
+    .p3history {
+      font-family: Arial, sans-serif;
+      /* background-color: #f7f7f7; */
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 380px;
+      height: 280px;
+      position: relative;
+
+      .header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        position: absolute;
+        left: 10%;
+        top: 10px;
+      }
+
+      .stages {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border-radius: 15px;
+        margin-top: 20px;
+
+        .stage {
+          /* background-color: #e0e0e0; */
+          padding: 5px 10px;
+          border-radius: 3px;
+          font-size: 14px;
+          color: #666;
+        }
+        .stage.active {
+          color: #ee4677; /* Change the color to your preferred color */
+          position: relative; /* Enable positioning context */
+          display: inline-block; /* Make the element behave like an inline block */
+          padding-bottom: 3px; /* Adjust the padding to create space for the border */
+        }
+
+        .stage.active::after {
+          content: ""; /* Required for pseudo-element */
+          position: absolute; /* Position relative to the parent */
+          left: 0; /* Align with the left edge of the parent */
+          top: 34px; /* Move 1px below the bottom edge of the parent */
+          width: 100%; /* Extend across the full width */
+          border-bottom: 1px solid #ee4677; /* Add a bottom border with the same color */
+        }
+
+        .stage::after {
+          content: "";
+          position: absolute;
+          left: 0; /* Adjust as needed based on your padding */
+          right: 10px; /* Adjust as needed based on your padding */
+          top: 75px; /* Adjust to control the distance of the separate border */
+          border-bottom: 1px solid #e0e0e0;
+          width: 100%;
+        }
+      }
+      .referral {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        /* padding: 5px; */
+        /* background-color: #fff; */
+        /* border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); */
+        margin-bottom: 1px;
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          margin-top: -10px;
+          margin-right: auto; /* Aligns the container to the left */
+        }
+        .id,
+        .phone {
+          font-size: 12px;
+          color: #030401;
+          font-weight: 500;
+          margin-right: 85px;
+          margin-bottom: 13px;
+          margin-top: -3px;
+        }
+
+        .date {
+          border-radius: 4px;
+          margin-left: -100px; /* Adjust left margin if necessary */
+          margin-top: -15px;
+          color: #868c9a;
+          font-weight: 500;
+          font-size: 12px;
+        }
+
+        .xcoins {
+          font-size: 14px;
+          color: #030401;
+          font-weight: 500;
+          margin-right: 50px; /* Adjust left margin if necessary */
+          margin-top: 10px;
+        }
+        .profile {
+          height: 30px;
+          border-radius: 25px;
+          background-color: #fff2f4;
+          margin-right: 10px;
+          padding: 10px;
+        }
+      }
+      .see-all {
+        text-align: center;
+        font-size: 14px;
+        color: #ee4677;
+        cursor: pointer;
+        background: none;
+        border: none;
+        text-underline-offset: 5px;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-decoration-color: #ee4677;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1em;
+        width: 100%;
+        justify-content: center; /* Center items horizontally */
+        margin-top: 0.5rem;
+        display: inline-flex; /* Use inline-flex to align items in a row */
+        align-items: center; /* Align items vertically in the center */
+        cursor: pointer; /* Show pointer cursor on hover */
+        margin-top: -50px;
+
+        .see-all:hover {
+          color: #333;
+        }
+      }
+    }
+    .p3tracker {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+     
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 15px;
+      margin-top: 20px;
+     
+
+    }
+    .p3tracker h2 {
+      padding-left: 20px; /* Adjust the value as needed */
+      font-size: 20px;
+      font-weight: 600;
+  }
+      .icon {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+    }
+  }
+

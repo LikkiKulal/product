@@ -1,0 +1,230 @@
+.p1app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  position: relative; /* Ensure it’s positioned relatively */
+
+  .p1main {
+    display: flex;
+    flex: 1;
+  }
+
+ 
+
+  .phase3 {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+
+    .p3head {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background-color: #fff;
+      margin-left: 255px;
+      margin-top: 100px;
+      height: 800px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #bebebe;
+
+      .sub {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
+        margin-left: 115px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-top: -28px; /* Optional: add margin-top for spacing */
+      }
+    }
+
+    .p3card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      position: absolute;
+      top: 25%;
+      left: 45%;
+
+      .p3top {
+        position: relative;
+        background-image: url('../../public/top.svg');/* Add the path to your image here */
+        background-size: cover; /* This ensures the image covers the entire container */
+        background-position: center; /* This centers the image in the container */
+        /* background-color: #ff4081; */
+        color: white;
+        padding: 20px;
+        height: 50%;
+        margin-bottom: -40px; /* Space below .p3top */
+
+        .top-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* Ensure the image covers the entire container */
+          z-index: -1; /* Push the image behind the content */
+        }
+
+        .p3top .content {
+          position: relative; /* Ensure content is above the image */
+          z-index: 1;
+          color: white; /* Ensure text color contrasts with the background */
+        }
+
+        .p3top h2 {
+          font-size: 16px;
+          margin: 0;
+
+          .p3top h1 {
+            font-size: 24px;
+            margin: 5px 0 15px;
+          }
+        }
+
+        .p3icons {
+          position: absolute;
+          top: 50px;
+          right: 20px;
+
+          .p3icon {
+            margin-left: 10px;
+            font-size: 20px;
+            background-color: #ff4081;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .container {
+        margin: 20px auto; /* Adjust the margin to create space between p3top and p3bottom */
+        padding: 0; /* No padding */
+        position: absolute; /* Absolute positioning */
+        top: 28%;
+        left: 50%; /* Position from left */
+        transform: translate(-50%, -50% ); 
+        z-index: 8;
+
+        .p3coins {
+          background-color: #ffffff;
+          border-radius: 8px;
+          padding: 12px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 220px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+          .p3coins span:first-child {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+          }
+
+          .p3coins span:first-child::before {
+            content: "₹";
+            background-color: #ffd700;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 8px;
+            font-size: 14px;
+          }
+
+          .text {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+            margin-left: 15px;
+
+            .down {
+              width: 12px;
+              height: 12px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+      .p3bottom {
+        padding: 20px;
+        position: relative;
+        /* background-color: #fff9c4; */
+        margin-top: 30px; /* Space above .p3bottom */
+
+        .mbg {
+          position: absolute;
+          bottom: 280px;
+          left: 0;
+          width: 100%;
+          height: auto;
+          z-index: 1;
+        }
+
+        h3 {
+          color: #030401;
+          font-size: 20px;
+          font-weight: 600;
+          text-align: center; /* Example color for h3 */
+         
+        }
+
+        h1 {
+          color: #ee4677; /* Example color for h1 */
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          margin-left: 25px;
+          font-size: 44px;
+          font-weight: 700;
+
+          .star {
+            width: 24px; /* Example size for the star */
+            height: 24px;
+            margin-left: 10px; /* Example margin */
+          }
+        }
+      }
+      .p3lotto {
+        /* background-color: #ff4081; */
+        border-radius: 10px;
+        color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+
+        .p3lottoimg {
+          width: 100%; /* Adjust the width as needed */
+          height: auto; /* Ensures the image height adjusts proportionally */
+        }
+      }
+      .p3play {
+        background-color: #ffc107;
+        border: none;
+        border-radius: 8px;
+        color: black;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 90%;
+        height: 50px;
+        font-weight: 600;
+        font-size: 18px;
+        position: relative;
+        margin-left: 15px;
+      }
+    }
+  }
+}

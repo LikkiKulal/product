@@ -1,0 +1,98 @@
+.p1app {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.p1main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.phase3 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.p3head {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.breadcrumb {
+  color: #bebebe;
+  font-size: 16px;
+}
+
+.sub {
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  
+}
+
+.phase3payment {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 400px;
+  margin-top: 75px;
+  height: 569px;
+  position: absolute;
+  top: 20%;
+  left: 45%;
+
+  .phase3form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -15px;
+
+    .phase3title {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .phase3subtitle {
+      color: #868C9A;
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 400;
+      margin-top: 0px;
+      
+    }
+  }
+
+.phase3input {
+  padding: 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.phase3input::placeholder {
+  color: #bebebe;
+}
+
+.phase3button {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.phase3button:hover {
+  background-color: #e0356f;
+}
+}
