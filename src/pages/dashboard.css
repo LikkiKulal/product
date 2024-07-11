@@ -149,9 +149,10 @@
     display: flex;
     padding: 1rem;
     gap: 2rem;
-    max-width: 800px; /* Add a max-width for better centering */
+    max-width: 100px; /* Add a max-width for better centering */
     margin: 0 auto; /* Center align the container horizontally */
     padding: 20px;
+    /* margin-left: -35px; */
     /* background-color: #f0f0f0; */
     margin-top: 100px; /* Maintain the top margin */
     position: absolute;
@@ -160,7 +161,7 @@
 
     .p3content {
       flex: 1;
-      width: 80vw;
+      width: 40vw;
       /* background-color: #fff;  */
       /* padding: 20px; */
       border-radius: 8px;
@@ -176,53 +177,94 @@
           background-color: #fff; /* Example background color */
           border-radius: 8px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          width: 550px;
+          width: 30vw;
           /* height: 244px; */
           justify-content: space-around;
         }
 
-        .p4actions {
-          display: flex;
-          gap: 20px;
-          overflow-x: auto;
-          overflow: hidden;
-        }
-        /* CSS for the left and right arrow animations */
-        @keyframes slideRight {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
+        
 
-        @keyframes slideLeft {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        .p4actions img {
+       
+        
+        .nav-icon {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
           cursor: pointer;
-          animation-duration: 0.5s;
-          animation-fill-mode: forwards;
+          z-index: 10;
+          width: 24px; /* Adjust as needed */
+          height: 24px; /* Adjust as needed */
+        }
+        
+        .nav-icon.left {
+          left: 10px;
+        }
+        
+        .nav-icon.right {
+          right: 10px;
+        }
+        
+        .nav-icon.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        .quick-actions-group {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+        }
+        
+        .p5action {
+          flex: 0 0 22%; /* Adjust to fit 4 items with some spacing */
+          max-width: 22%;
+        }
+        
+        .center-icon {
+          position: absolute;
+          top: 80%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+        }
+        
+        .p3quick {
+          position: relative;
+        }
+        
+        .center-dot {
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 8px;
+          height: 8px;
+          background-color: #000;
+          border-radius: 50%;
+        }
+        /* Action buttons */
+        .p4action {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 10px;
+          text-align: center;
         }
 
-        .slide-right {
-          animation-name: slideRight;
+        .no-underline {
+          text-decoration: none;
         }
 
-        .slide-left {
-          animation-name: slideLeft;
+        .text {
+          display: block;
         }
 
+        /* Absolute positioning for .a */
         .a {
-          margin-left: 260px;
-          margin-top: 15px;
+          position: absolute;
+          bottom: -10px; /* Adjust as needed */
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .p5action {
@@ -303,6 +345,7 @@
 
       .p4tabs .p5active {
         position: relative;
+
         color: black; /* Active tab text color */
       }
 
@@ -416,14 +459,24 @@
         margin-bottom: -100px;
       }
     }
+
+    .p3 {
+      flex: 1 1;
+      width: 30vw;
+      /* background-color: #fff; */
+      /* padding: 20px; */
+      border-radius: 8px;
+      /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    }
     .p3orders {
-      width: 80vw;
+      width: 30vw;
       background-color: #fff;
       border-radius: 8px;
       padding: 1rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       height: 1250px;
       position: relative;
+      display: block;
 
       .p3orders {
         display: flex;
@@ -498,6 +551,10 @@
         display: flex;
         margin-bottom: 1rem;
         gap: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
       }
 
       .p4order {
@@ -624,7 +681,7 @@
         justify-content: center;
         position: relative;
         z-index: 1;
-        margin-top: 5px;
+        margin-top: 15px;
       }
       .p6reject {
         background-color: #fff;
@@ -765,6 +822,15 @@
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
+
+      .confirm-order {
+        border: 1px solid #ccc;
+        white-space: nowrap;
+        padding: 10px;
+        border-radius: 8px;
+        max-width: 530px;
+      }
+
       .order-header {
         display: flex;
         justify-content: space-between;
@@ -801,7 +867,7 @@
       .contact-info span {
         display: flex;
         align-items: center; /* Align text and image vertically center */
-        gap: 8px;
+        gap: 4px;
         position: relative; /* Ensure the pseudo-element is positioned correctly */
       }
 

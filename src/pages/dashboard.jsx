@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import axiosInstance from '../axiosInstance';
 import { Link } from 'react-router-dom';
+
+import { CSSTransition } from 'react-transition-group';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './dashboard.css';
 
 function Assign() {
@@ -194,38 +198,97 @@ function Assign() {
 
 
   const [currentIndex, setCurrentIndex] = useState(1); // State to track the current index
-  const [animationClass, setAnimationClass] = useState('');
+
 
   // Function to handle clicking the left/right arrows or toggling between sets
-  const toggleIndex = (newIndex) => {
-    setCurrentIndex(newIndex);
+  const toggleIndex = (index) => {
+    setCurrentIndex(index);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = currentIndex === 3 ? 1 : currentIndex + 1;
-      setAnimationClass(nextIndex > currentIndex ? 'slide-right' : 'slide-left');
-      setTimeout(() => {
-        toggleIndex(nextIndex);
-      }, 500); // Match the animation duration
-    }, 3000); // Change page every 3 seconds
+  const SliderContext = createContext();
 
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+  const useSlider = () => useContext(SliderContext);
 
-  const handleLeftClick = () => {
-    setAnimationClass('slide-left');
-    setTimeout(() => {
-      toggleIndex(currentIndex === 1 ? 3 : currentIndex - 1);
-    }, 500); // Match the animation duration
+  const Slider = {
+    Container: ({ children, space = 16, height = 240 }) => {
+      const [current, setCurrent] = useState(0);
+      const [positionX, setPositionX] = useState(0);
+      const [itemsWidth, setItemsWidth] = useState([]);
+
+      const prev = () => {
+        if (current > 0) {
+          setCurrent(current - 1);
+          setPositionX(positionX + itemsWidth[current - 1] + space);
+        }
+      };
+
+      const next = () => {
+        if (current < itemsWidth.length - 1) {
+          setPositionX(positionX - (itemsWidth[current] + space));
+          setCurrent(current + 1);
+        }
+      };
+
+     
+
+      const hasPrev = current > 0;
+      const hasNext = current < itemsWidth.length - 1;
+
+      const value = {
+        current,
+        setCurrent,
+        prev,
+        next,
+        positionX,
+        hasPrev,
+        hasNext,
+        setItemsWidth,
+        space
+      };
+
+      return (
+        <SliderContext.Provider value={value}>
+          <div style={{ height: `${height}px`, overflow: 'hidden' }}>
+            {children}
+          </div>
+        </SliderContext.Provider>
+      );
+    },
+
+    List: ({ children }) => {
+      const { positionX, space, setItemsWidth } = useSlider();
+
+      useEffect(() => {
+        const widths = React.Children.map(children, child => child.props.width);
+        setItemsWidth(widths);
+      }, [children, setItemsWidth]);
+
+      return (
+        <div style={{
+          display: 'flex',
+          transform: `translateX(${positionX}px)`,
+          transition: 'transform 0.3s ease-out'
+        }}>
+          {React.Children.map(children, (child, index) => (
+            <div key={index} style={{ marginRight: `${space}px` }}>
+              {child}
+            </div>
+          ))}
+        </div>
+      );
+    },
+    Item: ({ children, width }) => (
+      <div style={{ width: `${width}px` }}>{children}</div>
+    )
   };
 
-  const handleRightClick = () => {
-    setAnimationClass('slide-right');
-    setTimeout(() => {
-      toggleIndex(currentIndex === 3 ? 1 : currentIndex + 1);
-    }, 500); // Match the animation duration
-  };
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     nextSlide();
+  //   }, 3000); 
+  //   return () => clearInterval(interval);
+  // }, [currentIndex]);
 
 
   // Function to scroll left
@@ -256,6 +319,7 @@ function Assign() {
   const filteredOrders = orders.filter(order => order.status === activeOrderStatus);
   const OrderDetails = ({ order }) => {
     if (!order) return null;
+
 
     return (
       <div className="order-details">
@@ -348,7 +412,113 @@ function Assign() {
   );
 
 
+  const SliderWrapper = () => {
+    const { prev, next, hasPrev, hasNext, current, setCurrent } = useSlider();
+    const totalSlides = 3; // Adjust this based on the number of slides
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrent((prevCurrent) => (prevCurrent + 1) % totalSlides);
+      }, 2000); // Change slide every 2 seconds
+  
+      return () => clearInterval(interval);
+    }, [setCurrent, totalSlides]);
 
+    return (
+      <div className="quick-actions-container">
+        <img
+          src="/left.svg"
+          onClick={prev}
+          className={`nav-icon left ${!hasPrev ? 'disabled' : ''}`}
+          alt="Previous"
+        />
+        <Slider.List>
+          {/* First slide */}
+          <Slider.Item width={560}>
+            <div className="quick-actions-group">
+              <button className="p5action">
+                <Link to="/makepayment" className="no-underline">
+                  <img src="/payment.svg" alt="" />
+                  <span className='text'>Make Payment</span>
+                </Link>
+              </button>
+              <button className="p5action">
+                <img src="/statements.svg" alt="" />
+                <span className='text'>Settlements</span>
+              </button>
+              <button className="p5action">
+                <img src="/transactions.svg" alt="" />
+                <span className='text'>Transaction History</span>
+              </button>
+              <button className="p5action">
+                <Link to="/packed" className="no-underline">
+                  <img src="/payment.svg" alt="" />
+                  <span className='text'>Packed</span>
+                </Link>
+              </button>
+            </div>
+          </Slider.Item>
+          {/* Second slide */}
+          <Slider.Item width={560}>
+            <div className="quick-actions-group">
+              <button className="p5action">
+                <img src="/cards.svg" alt="" />
+                <span className='text'>Gift Cards</span>
+              </button>
+              <button className="p5action">
+                <Link to="/banner" className="no-underline">
+                  <img src="/cards.svg" alt="" />
+                  <span className='text'>Banner</span>
+                </Link>
+              </button>
+              <button className="p5action">
+                <Link to="/popup" className="no-underline">
+                  <img src="/cards.svg" alt="" />
+                  <span className='text'>Popup</span>
+                </Link>
+              </button>
+              <button className="p5action">
+                <Link to="/referandearn" className="no-underline">
+                  <img src="/payment.svg" alt="" />
+                  <span className='text'>Refer and Earn</span>
+                </Link>
+              </button>
+            </div>
+          </Slider.Item>
+          {/* Third slide */}
+          <Slider.Item width={560}>
+            <div className="quick-actions-group">
+              <button className="p5action">
+                <Link to="/rewards" className="no-underline">
+                  <img src="/cards.svg" alt="" />
+                  <span className='text'>Rewards</span>
+                </Link>
+              </button>
+              <button className="p5action">
+                <Link to="/empty" className="no-underline">
+                  <img src="/payment.svg" alt="" />
+                  <span className='text'>Empty</span>
+                </Link>
+              </button>
+              <button className="p5action">
+                <Link to="/product" className="no-underline">
+                  <img src="/payment.svg" alt="" />
+                  <span className='text'>Product</span>
+                </Link>
+              </button>
+            
+            </div>
+          </Slider.Item>
+        </Slider.List>
+        <img
+          src="/right.svg"
+          onClick={next}
+          className={`nav-icon right ${!hasNext ? 'disabled' : ''}`}
+          alt="Next"
+        />
+      </div>
+    );
+  };
 
   return (
     <div className="p1app">
@@ -361,108 +531,12 @@ function Assign() {
             <div className="p3quick-container">
               <section className="p3quick">
                 <h2>Quick Actions</h2>
-                <div className="p4actions" ref={scrollContainerRef}>
-                  {/* Left arrow for toggling between sets */}
-                  <img
-                    src='/left.svg'
-                    alt=''
-                    onClick={() => {
-                      setAnimationClass('slide-left');
-                      setTimeout(() => {
-                        toggleIndex(currentIndex === 1 ? 3 : currentIndex - 1);
-                      }, 500);
-                    }}
-                    className={animationClass}
-                  />
-                  {/* Conditionally render icons based on currentIndex */}
-                  {currentIndex === 1 && (
-                    <>
-                      <button className="p5action">
-                        <Link to="/makepayment" className="no-underline">
-                          <img src="/payment.svg" alt="" />
-                          <span className='text'>Make Payment</span>
-                        </Link>
-                      </button>
-                      <button className="p5action">
-                        <img src="/statements.svg" alt="" />
-                        <span className='text'>Settlements</span>
-                      </button>
-                      <button className="p5action">
-                        <img src="/transactions.svg" alt="" />
-                        <span className='text'>Transaction History</span>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/packed" className="no-underline">
-                          <img src="/payment.svg" alt="" />
-                          <span className='text'>Packed</span>
-                        </Link>
-                      </button>
-                    </>
-                  )}
-                  {currentIndex === 2 && (
-                    <>
-                      <button className="p5action">
-                        <img src="/cards.svg" alt="" />
-                        <span className='text'>Gift Cards</span>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/banner" className="no-underline">
-                          <img src="/cards.svg" alt="" />
-                          <span className='text'>Banner</span>
-                        </Link>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/popup" className="no-underline">
-                          <img src="/cards.svg" alt="" />
-                          <span className='text'>Popup</span>
-                        </Link>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/referandearn" className="no-underline">
-                          <img src="/payment.svg" alt="" />
-                          <span className='text'>Refer and Earn</span>
-                        </Link>
-                      </button>
-                    </>
-                  )}
-                  {currentIndex === 3 && (
-                    <>
-                      <button className="p5action">
-                        <Link to="/rewards" className="no-underline">
-                          <img src="/cards.svg" alt="" />
-                          <span className='text'>Rewards</span>
-                        </Link>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/empty" className="no-underline">
-                          <img src="/payment.svg" alt="" />
-                          <span className='text'>Empty</span>
-                        </Link>
-                      </button>
-                      <button className="p5action">
-                        <Link to="/product" className="no-underline">
-                          <img src="/payment.svg" alt="" />
-                          <span className='text'>Product</span>
-                        </Link>
-                      </button>
-                    </>
-                  )}
-                  {/* Right arrow for toggling between sets */}
-                  <img
-                    src='/right.svg'
-                    alt=''
-                    onClick={() => {
-                      setAnimationClass('slide-right');
-                      setTimeout(() => {
-                        toggleIndex(currentIndex === 3 ? 1 : currentIndex + 1);
-                      }, 500);
-                    }}
-                    className={animationClass}
-                  />
-                  {/* Additional image */}
-                  <img src='/A.svg' alt='' className='a' />
-
-
+                <Slider.Container space={16} height={240}>
+                  <SliderWrapper />
+                </Slider.Container>
+                
+                <div className="center-icon">
+                  <img src="/a.svg" alt="Center Icon" />
                 </div>
               </section>
             </div>
@@ -548,142 +622,145 @@ function Assign() {
             </section>
           </div>
 
-          <section className="p3orders">
-            <h2>My Orders</h2>
-            <img src="/return.svg" alt="" className="icon" />
-            <div className='new'>
-              <h3>Last Update at: June 02, 2024 | 11:25 PM</h3>
-            </div>
-            <div class='search-container'>
-              <div class='search'>
-                <img src="/search.svg" alt="" class="i" />
-                <input type="text" placeholder="Search for order id or Customer Name" />
-              </div>
-            </div>
-            <div className="p4status">
-              <span className={`p5status ${activeOrderStatus === 'confirmation' ? 'p5active' : ''}`}
-                onClick={() => handleStatusFilter('confirmation')}>
-                Confirmation ({orderCounts.confirmation})
-              </span>
-              <span className={`p5status ${activeOrderStatus === 'preparing' ? 'p5active' : ''}`}
-                onClick={() => handleStatusFilter('preparing')}>
-                Preparing ({orderCounts.preparing})
-              </span>
-              <span className={`p5status ${activeOrderStatus === 'packed' ? 'p5active' : ''}`}
-                onClick={() => handleStatusFilter('packed')}>
-                Packed Orders ({orderCounts.packed})
-              </span>
-              <span className={`p5status ${activeOrderStatus === 'completed' ? 'p5active' : ''}`}
-                onClick={() => handleStatusFilter('completed')}>
-                Completed ({orderCounts.completed})
-              </span>
-            </div>
 
-            {activeOrderStatus === 'preparing' ? (
-              <div className="preparing-orders">
-                {filteredOrders.map(order => (
-                  <PrepareOrder key={order.id} order={order} />
-                ))}
+          <div className='p3'>
+
+            <section className="p3orders">
+              <h2>My Orders</h2>
+              <img src="/return.svg" alt="" className="icon" />
+              <div className='new'>
+                <h3>Last Update at: June 02, 2024 | 11:25 PM</h3>
               </div>
-            ) : activeOrderStatus === 'confirmation' ? (
-              <div className="confirmation-orders">
-                {filteredOrders.map(order => (
-                  <ConfirmOrder key={order.id} order={order} />
-                ))}
+              <div class='search-container'>
+                <div class='search'>
+                  <img src="/search.svg" alt="" class="i" />
+                  <input type="text" placeholder="Search for order id or Customer Name" />
+                </div>
               </div>
-            ) : (
-              filteredOrders.map(order => (
-                <div key={order.id}>
-                  {order.status === 'packed' ? (
-                    <div className="container" key={`delivery-status-${order.id}`}>
-                      <div className="header">Ready for delivery:</div>
-                      <div className="order-id">Order Id: <span className='id'>{order.id}</span></div>
-                      <div className="info">
-                        <p>Rajesh Kannan</p>
-                        <div class="contact">
-                          <div class="text3">
-                            <img src="/phone.svg" alt="Phone" />
-                            <span>+918526547512</span>
-                          </div>
-                          <div class="text4">
-                            <img src="/location.svg" alt=" " />
-                            <span>R S Puram, Coimbatore</span>
+              <div className="p4status">
+                <span className={`p5status ${activeOrderStatus === 'confirmation' ? 'p5active' : ''}`}
+                  onClick={() => handleStatusFilter('confirmation')}>
+                  Confirmation ({orderCounts.confirmation})
+                </span>
+                <span className={`p5status ${activeOrderStatus === 'preparing' ? 'p5active' : ''}`}
+                  onClick={() => handleStatusFilter('preparing')}>
+                  Preparing ({orderCounts.preparing})
+                </span>
+                <span className={`p5status ${activeOrderStatus === 'packed' ? 'p5active' : ''}`}
+                  onClick={() => handleStatusFilter('packed')}>
+                  Packed Orders ({orderCounts.packed})
+                </span>
+                <span className={`p5status ${activeOrderStatus === 'completed' ? 'p5active' : ''}`}
+                  onClick={() => handleStatusFilter('completed')}>
+                  Completed ({orderCounts.completed})
+                </span>
+              </div>
+
+              {activeOrderStatus === 'preparing' ? (
+                <div className="preparing-orders">
+                  {filteredOrders.map(order => (
+                    <PrepareOrder key={order.id} order={order} />
+                  ))}
+                </div>
+              ) : activeOrderStatus === 'confirmation' ? (
+                <div className="confirmation-orders">
+                  {filteredOrders.map(order => (
+                    <ConfirmOrder key={order.id} order={order} />
+                  ))}
+                </div>
+              ) : (
+                filteredOrders.map(order => (
+                  <div key={order.id}>
+                    {order.status === 'packed' ? (
+                      <div className="container" key={`delivery-status-${order.id}`}>
+                        <div className="header">Ready for delivery:</div>
+                        <div className="order-id">Order Id: <span className='id'>{order.id}</span></div>
+                        <div className="info">
+                          <p>Rajesh Kannan</p>
+                          <div class="contact">
+                            <div class="text3">
+                              <img src="/phone.svg" alt="Phone" />
+                              <span>+918526547512</span>
+                            </div>
+                            <div class="text4">
+                              <img src="/location.svg" alt=" " />
+                              <span>R S Puram, Coimbatore</span>
+                            </div>
                           </div>
                         </div>
+                        <ul class="timeline">
+                          <li>
+                            <div class="icon2"></div>
+                            <div class="line"></div>
+                            <div class="status">Store Confirmation</div>
+                            <div class="date">Apr 09, 2024 | 02:00PM</div>
+                          </li>
+                          <li>
+                            <div class="icon2"></div>
+                            <div class="line"></div>
+                            <div class="status">Delivery Accepted</div>
+                            <div class="date">Apr 10, 2024 | 03:00PM</div>
+                          </li>
+                          <li>
+                            <div class="icon2"></div>
+                            <div class="status">Delivery Pickup</div>
+                            <div class="date">Apr 10, 2024 | 03:30PM</div>
+                          </li>
+                        </ul>
                       </div>
-                      <ul class="timeline">
-                        <li>
-                          <div class="icon2"></div>
-                          <div class="line"></div>
-                          <div class="status">Store Confirmation</div>
-                          <div class="date">Apr 09, 2024 | 02:00PM</div>
-                        </li>
-                        <li>
-                          <div class="icon2"></div>
-                          <div class="line"></div>
-                          <div class="status">Delivery Accepted</div>
-                          <div class="date">Apr 10, 2024 | 03:00PM</div>
-                        </li>
-                        <li>
-                          <div class="icon2"></div>
-                          <div class="status">Delivery Pickup</div>
-                          <div class="date">Apr 10, 2024 | 03:30PM</div>
-                        </li>
-                      </ul>
-                    </div>
-                  ) : (
-                    <div className={`p4order ${order.status === 'preparing' ? 'no-border' : ''}`}>
-                      <div className="p5header">
-                        <span className="p6id">Order ID: {order.id}</span>
-                        <span className="p6date">Date: {order.date}</span>
-                      </div>
-                      <div className="p5items">
-                        <span>
-                          Order Items
-                          <img src='/up.svg' alt='' />
-                        </span>
-                        {order.items.map((item, index) => (
-                          <div key={index} className="p6item">
-                            <span>{item.quantity} x {item.name}</span>
-                            <span>₹{(item.price * item.quantity).toFixed()}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {order.status !== 'preparing' && (
-                        <>
-                          <div className="p5total">
-                            <span>
-                              Total Bill Amount: <span className="payment-method">{order.paymentMethod}</span>
-                            </span>
-                            <span>₹{order.total.toFixed(2)}</span>
-                          </div>
-                          <span className="p5details" onClick={() => handleViewDetails(order.id)}>
-                            {selectedOrderId === order.id ? 'Hide details' : 'View full order details'}
-                            <img src='/side.svg' alt='' />
+                    ) : (
+                      <div className={`p4order ${order.status === 'preparing' ? 'no-border' : ''}`}>
+                        <div className="p5header">
+                          <span className="p6id">Order ID: {order.id}</span>
+                          <span className="p6date">Date: {order.date}</span>
+                        </div>
+                        <div className="p5items">
+                          <span>
+                            Order Items
+                            <img src='/up.svg' alt='' />
                           </span>
-                        </>
-                      )}
-                      <div className="p5actions">
-                        {order.status === 'confirmation' && (
+                          {order.items.map((item, index) => (
+                            <div key={index} className="p6item">
+                              <span>{item.quantity} x {item.name}</span>
+                              <span>₹{(item.price * item.quantity).toFixed()}</span>
+                            </div>
+                          ))}
+                        </div>
+                        {order.status !== 'preparing' && (
                           <>
-                            <button className="p6reject" onClick={() => handleReject(order.id)}>
-                              Reject Order
-                            </button>
-                            <button className="p6confirm" onClick={() => handleConfirm(order.id)}>
-                              Confirm Order
-                            </button>
+                            <div className="p5total">
+                              <span>
+                                Total Bill Amount: <span className="payment-method">{order.paymentMethod}</span>
+                              </span>
+                              <span>₹{order.total.toFixed(2)}</span>
+                            </div>
+                            <span className="p5details" onClick={() => handleViewDetails(order.id)}>
+                              {selectedOrderId === order.id ? 'Hide details' : 'View full order details'}
+                              <img src='/side.svg' alt='' />
+                            </span>
                           </>
                         )}
+                        <div className="p5actions">
+                          {order.status === 'confirmation' && (
+                            <>
+                              <button className="p6reject" onClick={() => handleReject(order.id)}>
+                                Reject Order
+                              </button>
+                              <button className="p6confirm" onClick={() => handleConfirm(order.id)}>
+                                Confirm Order
+                              </button>
+                            </>
+                          )}
+                        </div>
+                        {selectedOrderId === order.id && <OrderDetails order={order} />}
                       </div>
-                      {selectedOrderId === order.id && <OrderDetails order={order} />}
-                    </div>
-                  )}
-                </div>
-              ))
-            )}
+                    )}
+                  </div>
+                ))
+              )}
 
-          </section>
-
+            </section>
+          </div>
         </main>
 
 
